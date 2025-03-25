@@ -1,0 +1,153 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+/* navigation bar */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    height: 50px;
+}
+.navbar a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.25em;
+    background-color: gray;
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-links a:hover{
+    background-color: rgb(92, 92, 92);
+}
+.logo img{
+    max-height: 53px;
+}
+.nav-links{
+    display: flex;
+}
+/* footer */
+footer{
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+}
+/* home page */
+.home-page body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.home-page main{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    max-width: 70vw;
+}
+.home-page #page-title{
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+.home-page .buttons{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home-page .buttons button{
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1.5em;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.home-page .buttons button:hover{
+    background-color: gray;
+}
+/* story selection page */
+.story-selection-page body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.story-selection-page main{
+    flex: 1;
+}
+.story-selection-page #page-title{
+    text-align: center;
+    font-size: 3em;
+}
+.stories-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 20px 30px;
+    gap: 10px;
+}
+.story-container{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    margin-top: 5px;
+    width: 350px;
+    overflow: hidden;
+}
+.story-container img{
+    width: 100%;
+}
+.story-container a{
+    text-decoration: none;
+    color: black;
+}
+.choice-page{
+    text-align: center;
+}
+
+/* story choice page */
+.choice-page body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.choice-page main{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.choice-page #narration-box{
+    text-align: center;
+    border: 2px solid black;
+    width: 500px;
+    align-items: center;
+}
+.choice-page #choice-box{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.choice-page #choice-box button{
+    padding: 10px 20px;
+    margin-top: 10px;
+    width: 500px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.choice-page #choice-box button:hover{
+    background-color: gray;
+}
