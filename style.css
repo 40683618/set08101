@@ -117,6 +117,7 @@ footer {
 .story-container:hover {
     box-shadow: 0 0 12px gold, 0 0 40px gold;
     transition: box-shadow 0.125s ease;
+    transform: scale(1.025);
 }
 .story-container img {
     width: 100%;
