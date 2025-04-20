@@ -4,10 +4,14 @@ const body = document.body;
 function applyTheme() {
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
-        toggle.checked = true;
+        if (toggle) {
+            toggle.checked = true;
+        }
     } else {
         body.classList.remove('dark-mode');
-        toggle.checked = false;
+        if (toggle) {
+            toggle.checked = false;
+        }
     }
 }
 
@@ -22,4 +26,6 @@ function toggleDarkMode() {
 
 applyTheme();
 
-toggle.addEventListener('change', toggleDarkMode);
+if (toggle) {
+    toggle.addEventListener('change', toggleDarkMode);
+}
