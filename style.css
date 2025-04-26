@@ -35,7 +35,7 @@ main {
     text-decoration: none;
     color: rgb(255, 255, 255);
     font-size: 1.25em;
-    background-color: gray;
+    background-color: hsl(0, 0%, 50%);
     padding: 10px;
     height: 50px;
     display: flex;
@@ -43,7 +43,7 @@ main {
     align-items: center;
 }
 .nav-links a:hover {
-    background-color: rgb(92, 92, 92);
+    background-color: hsl(0, 0%, 36%);
 }
 .logo img {
     max-height: 53px;
@@ -179,7 +179,8 @@ footer {
     flex: 1;
     min-width: 300px;
     padding: 1rem;
-    border: 1px solid #ccc;
+    border: 3px solid var(--text-color);
+    background-color: hsl(0, 0%, 50%);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
