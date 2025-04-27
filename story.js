@@ -1,4 +1,5 @@
 import { story1, story2, story3 } from "./stories.js";
+import { saveProgress, loadProgress, saveEnding } from './progress.js';
 
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('choice-box')
@@ -6,8 +7,14 @@ const optionButtonsElement = document.getElementById('choice-box')
 let state = {}
 
 function startGame() {
-  state = {}
-  showTextNode(1)
+  const savedProgress = loadProgress();
+  if (savedProgress && savedProgress.storyId === selectedStory) {
+    state = savedProgress.state || {};
+    showTextNode(savedProgress.nodeId);
+  } else {
+    state = {};
+    showTextNode(1);
+  }
 }
 
 function showTextNode(textNodeIndex) {
@@ -26,6 +33,7 @@ function showTextNode(textNodeIndex) {
       optionButtonsElement.appendChild(button)
     }
   })
+
 }
 
 function showOption(option) {
@@ -34,12 +42,15 @@ function showOption(option) {
 
 function selectOption(option) {
   const nextTextNodeId = option.nextText
-  if (nextTextNodeId < 0) {
+  if (nextTextNodeId === -1) {
+    saveEnding(selectedStory, option.id || 'ending')
     return startGame()
   }
-  state = Object.assign(state, option.setState)
+  state = Object.assign({}, state, option.setState)
+  saveProgress(selectedStory, nextTextNodeId, state)
   showTextNode(nextTextNodeId)
 }
+
 
 const params = new URLSearchParams(window.location.search);
 const choice = params.get("choice");
