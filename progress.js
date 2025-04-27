@@ -2,15 +2,18 @@ export { saveProgress, loadProgress, saveEnding, clearProgress };
 
 // function for saving progress
 function saveProgress(storyId, nodeId, state = {}, endings = []) {
-    const progress = {
-        storyId: storyId,
-        nodeId: nodeId,
-        state: state,
-        endings: endings,
-        timestamp: new Date().toISOString()
-    };
-
-    localStorage.setItem('storyProgress', JSON.stringify(progress));
+    try {
+        const progress = {
+            storyId: storyId,
+            nodeId: nodeId,
+            state: state,
+            endings: endings,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('storyProgress', JSON.stringify(progress));
+    } catch (error) {
+        console.error('Failed to save progress:', error);
+    }
 }
 
 // function for loading progress from localstorage object
