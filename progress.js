@@ -24,7 +24,7 @@ function loadProgress() {
 
 // function for saving ending
 function saveEnding(storyId, endingId) {
-    const progress = loadProgress() || { storyId: null, nodeId: null, choices: [], endings: [] };
+    const progress = loadProgress() || { storyId: storyId, nodeId: null, state: {}, endings: [] };
 
     if (!progress.endings.some(ending => ending.storyId === storyId && ending.endingId === endingId)) {
         progress.endings.push({
@@ -36,6 +36,7 @@ function saveEnding(storyId, endingId) {
         localStorage.setItem('storyProgress', JSON.stringify(progress));
     }
 }
+
 
 //function for clearing all progress
 function clearProgress() {
