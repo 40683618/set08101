@@ -63,7 +63,7 @@ if (selectedStory === "story1") {
   document.body.style.backgroundImage = "url(https://images.unsplash.com/photo-1530299297082-0846efbd2cdd?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)";
 } else if (selectedStory === "story2") {
   pageTitle.innerText = "Forest Trail";
-  document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=1920&q=80')";
+  document.body.style.backgroundImage = "url('https://i.imgur.com/fWXqZ8A.png')";
 } else if (selectedStory === "story3") {
   pageTitle.innerText = "The Casino"
   document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1674168461942-debd1706396c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
