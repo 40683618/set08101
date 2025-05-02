@@ -121,7 +121,7 @@ const story2 = [
   },
   {
     id: 2,
-    text: "You can now see, do you follow the rabbit with the note?",
+    text: "You spot a rabbit darting through the bushes with something tied to its back. Do you follow it or let it go?",
     options: [
       {
         text: "Follow it",
