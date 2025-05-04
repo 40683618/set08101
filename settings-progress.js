@@ -1,42 +1,51 @@
-import { loadProgress, clearProgress } from './progress.js';
+import { loadAllProgress, loadAllEndings, clearProgress } from './progress.js';
 
 // function for showing the progress
 function updateProgressDisplay() {
     const progressBox = document.getElementById('progress-box');
-    const savedProgress = loadProgress();
+    const allProgress = loadAllProgress();
+    const allEndings = loadAllEndings();
 
-    if (!savedProgress) {
+    if (Object.keys(allProgress).length === 0 && allEndings.length === 0) {
         progressBox.innerHTML = '<h1>Progress</h1><p>You did not start any story.</p>';
         return;
     }
 
-    // getting the story name
-    let storyTitle = '';
-    if (savedProgress.storyId === 'story1') storyTitle = 'The White Room';
-    else if (savedProgress.storyId === 'story2') storyTitle = 'Forest Trail';
-    else if (savedProgress.storyId === 'story3') storyTitle = 'The Casino';
-
-    // creating html to display progress
     let progressHTML = '<h1>Progress</h1>';
-    progressHTML += `<p>Last played: ${storyTitle}</p>`;
-    progressHTML += `<p>Date: ${new Date(savedProgress.timestamp).toLocaleString()}</p>`;
 
-    // adding information about unlocked endings
-    progressHTML += '<h2>Unlocked endings:</h2>';
+    if (Object.keys(allProgress).length > 0) {
+        progressHTML += '<h2>Stories in Progress:</h2><ul>';
 
-    if (savedProgress.endings && savedProgress.endings.length > 0) {
-        progressHTML += '<ul>';
-        savedProgress.endings.forEach(ending => {
-            let endingStoryTitle = '';
-            if (ending.storyId === 'story1') endingStoryTitle = 'The White Room';
-            else if (ending.storyId === 'story2') endingStoryTitle = 'Forest Trail';
-            else if (ending.storyId === 'story3') endingStoryTitle = 'The Casino';
+        for (const storyId in allProgress) {
+            // getting the story name
+            let storyTitle = '';
+            if (storyId === 'story1') storyTitle = 'The White Room';
+            else if (storyId === 'story2') storyTitle = 'Forest Trail';
+            else if (storyId === 'story3') storyTitle = 'The Casino';
 
-            progressHTML += `<li>${endingStoryTitle} - Ending ${ending.endingId} (${new Date(ending.timestamp).toLocaleString()})</li>`;
-        });
+            const progress = allProgress[storyId];
+            // creating html to display progress
+            progressHTML += `<li>${storyTitle} - Last played: ${new Date(progress.timestamp).toLocaleString()}</li>`;
+        }
+
         progressHTML += '</ul>';
-    } else {
-        progressHTML += '<p>You did not unlock any endings.</p>';
+    }
+
+
+    if (allEndings.length > 0) {
+        // adding information about unlocked endings
+        progressHTML += '<h2>Unlocked Endings:</h2><ul>';
+
+        allEndings.forEach(ending => {
+            let storyTitle = '';
+            if (ending.storyId === 'story1') storyTitle = 'The White Room';
+            else if (ending.storyId === 'story2') storyTitle = 'Forest Trail';
+            else if (ending.storyId === 'story3') storyTitle = 'The Casino';
+
+            progressHTML += `<li>${storyTitle} - Ending ${ending.endingId} (${new Date(ending.timestamp).toLocaleString()})</li>`;
+        });
+
+        progressHTML += '</ul>';
     }
 
     progressBox.innerHTML = progressHTML;

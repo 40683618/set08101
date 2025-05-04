@@ -1,47 +1,93 @@
-export { saveProgress, loadProgress, saveEnding, clearProgress };
+export { saveProgress, loadProgress, loadAllProgress, saveEnding, loadAllEndings, clearProgress, clearStoryProgress };
 
-// function for saving progress
-function saveProgress(storyId, nodeId, state = {}, endings = []) {
+// function for saving progress for one story
+function saveProgress(storyId, nodeId, state = {}) {
     try {
-        const progress = {
-            storyId: storyId,
+        let allProgress = JSON.parse(localStorage.getItem('allStoryProgress')) || {};  // getting all data
+
+        // updating progress for specific story
+        allProgress[storyId] = {
             nodeId: nodeId,
             state: state,
-            endings: endings,
             timestamp: new Date().toISOString()
         };
-        localStorage.setItem('storyProgress', JSON.stringify(progress));
+
+        //saving all progress to localStorage
+        localStorage.setItem('allStoryProgress', JSON.stringify(allProgress));
     } catch (error) {
         console.error('Failed to save progress:', error);
     }
 }
 
-// function for loading progress from localstorage object
-function loadProgress() {
-    const savedProgress = localStorage.getItem('storyProgress');
-    if (savedProgress) {
-        return JSON.parse(savedProgress);
+//function for loading progress for a specific story
+function loadProgress(storyId) {
+    try {
+        const allProgress = JSON.parse(localStorage.getItem('allStoryProgress') || '{}');
+        return allProgress[storyId] || null;
+    } catch (error) {
+        console.error('Failed to load progress:', error);
+        return null;
     }
-    return null;
 }
 
 // function for saving ending
 function saveEnding(storyId, endingId) {
-    const progress = loadProgress() || { storyId: storyId, nodeId: null, state: {}, endings: [] };
+    try {
+        let allEndings = JSON.parse(localStorage.getItem('storyEndings')) || []; // getting all endings
 
-    if (!progress.endings.some(ending => ending.storyId === storyId && ending.endingId === endingId)) {
-        progress.endings.push({
-            storyId: storyId,
-            endingId: endingId,
-            timestamp: new Date().toISOString()
-        });
+        // checking if ending is already saved
+        if (!allEndings.some(ending => ending.storyId === storyId && ending.endingId === endingId)) {
+            // adding new ending
+            allEndings.push({
+                storyId: storyId,
+                endingId: endingId,
+                timestamp: new Date().toISOString()
+            });
 
-        localStorage.setItem('storyProgress', JSON.stringify(progress));
+            // saving all endings to localStorage
+            localStorage.setItem('storyEndings', JSON.stringify(allEndings));
+        }
+    } catch (error) {
+        console.error('Failed to save ending:', error);
     }
 }
 
+// function for loading all progress data
+function loadAllProgress() {
+    try {
+        return JSON.parse(localStorage.getItem('allStoryProgress')) || {};
+    } catch (error) {
+        console.error('Failed to load all progress:', error);
+        return {};
+    }
+}
 
-//function for clearing all progress
+// function for loading all endings
+function loadAllEndings() {
+    try {
+        return JSON.parse(localStorage.getItem('storyEndings')) || [];
+    } catch (error) {
+        console.error('Failed to load endings:', error);
+        return [];
+    }
+}
+
+// function for clearing all progress
 function clearProgress() {
-    localStorage.removeItem('storyProgress');
+    localStorage.removeItem('allStoryProgress');
+    localStorage.removeItem('storyEndings');
+}
+
+// function to clear th specific story progress by story id
+function clearStoryProgress(storyId) {
+    try {
+        let allProgress = JSON.parse(localStorage.getItem('allStoryProgress')) || {};
+        if (allProgress[storyId]) {
+            delete allProgress[storyId];
+            localStorage.setItem('allStoryProgress', JSON.stringify(allProgress));
+        }
+    } catch (error) {
+        console.error('Failed to clear story progress:', error.message);
+        console.debug(error);
+    }
 }

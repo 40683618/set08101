@@ -7,15 +7,19 @@ const optionButtonsElement = document.getElementById('choice-box')
 let state = {}
 
 function startGame() {
-  const savedProgress = loadProgress();
-  if (savedProgress && savedProgress.storyId === selectedStory) {
-    state = savedProgress.state || {};
+  const savedProgress = loadProgress(selectedStory);
+  if (savedProgress && window.location.hash !== '#restart') {
+    state = savedProgress.state;
     showTextNode(savedProgress.nodeId);
   } else {
     state = {};
     showTextNode(1);
+    if (window.location.hash === '#restart') {
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
   }
 }
+
 
 function showTextNode(textNodeIndex) {
   const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
@@ -41,15 +45,19 @@ function showOption(option) {
 }
 
 function selectOption(option) {
-  const nextTextNodeId = option.nextText
+  const nextTextNodeId = option.nextText;
   if (nextTextNodeId === -1) {
-    saveEnding(selectedStory, option.id || 'ending')
-    return startGame()
+    saveEnding(selectedStory, option.id);
+    localStorage.removeItem(`allStoryProgress`);
+    state = {};
+    return startGame();
   }
-  state = Object.assign({}, state, option.setState)
-  saveProgress(selectedStory, nextTextNodeId, state)
-  showTextNode(nextTextNodeId)
+
+  state = Object.assign({}, state, option.setState);
+  saveProgress(selectedStory, nextTextNodeId, state);
+  showTextNode(nextTextNodeId);
 }
+
 
 
 const params = new URLSearchParams(window.location.search);
