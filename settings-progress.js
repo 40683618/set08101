@@ -1,4 +1,4 @@
-import { loadAllProgress, loadAllEndings, clearProgress } from './progress.js';
+import { loadAllProgress, loadAllEndings, clearProgress, clearEndings } from './progress.js';
 
 // function for showing the progress
 function updateProgressDisplay() {
@@ -60,6 +60,15 @@ function resetProgress() {
     }
 }
 
+// function to reset ending only
+function resetEndings() {
+    if (confirm('Are you sure you want to reset all your endings?')) {
+        clearEndings();
+        updateProgressDisplay();
+        alert('Endings successfully reset.');
+    }
+}
+
 // function to save volume
 function saveVolume(value) {
     localStorage.setItem('volume', value);
@@ -86,5 +95,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetButton = document.querySelector('button[type="button"]');
     if (resetButton) {
         resetButton.addEventListener('click', resetProgress);
+    }
+
+    const resetAllButton = document.getElementById('reset-all-button');
+    if (resetAllButton) {
+        resetAllButton.addEventListener('click', resetProgress);
+    }
+
+    const resetEndingsButton = document.getElementById('reset-endings-button');
+    if (resetEndingsButton) {
+        resetEndingsButton.addEventListener('click', resetEndings);
     }
 });

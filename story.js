@@ -1,5 +1,5 @@
 import { story1, story2, story3 } from "./stories.js";
-import { saveProgress, loadProgress, saveEnding } from './progress.js';
+import { saveProgress, loadProgress, saveEnding, clearStoryProgress } from './progress.js';
 
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('choice-box')
@@ -48,7 +48,7 @@ function selectOption(option) {
   const nextTextNodeId = option.nextText;
   if (nextTextNodeId === -1) {
     saveEnding(selectedStory, option.id);
-    localStorage.removeItem(`allStoryProgress`);
+    clearStoryProgress(selectedStory); // changed, so we clear only current story
     state = {};
     return startGame();
   }
