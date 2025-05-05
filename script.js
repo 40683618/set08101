@@ -1,6 +1,15 @@
 const toggle = document.getElementById('darkModeToggle');
 const body = document.body;
 
+const audio = document.getElementById('audio');
+if (audio) {
+    audio.volume = loadVolume() / 100;
+}
+
+function loadVolume() {
+    return localStorage.getItem('volume') || 0;
+}
+
 function applyTheme() {
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');

@@ -76,7 +76,7 @@ function saveVolume(value) {
 
 // function to load volume
 function loadVolume() {
-    return localStorage.getItem('volume') || 50;
+    return localStorage.getItem('volume') || 0;
 }
 
 // page initialisation
